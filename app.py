@@ -32,6 +32,11 @@ def style_static(filename):
     return Response(STYLE_CSS, mimetype='text/css')
 
 SUPABASE_URL = os.getenv('SUPABASE_URL', '').rstrip('/')
+# Accept either the project URL or a copied Data API URL; normalize to the project root.
+if SUPABASE_URL.endswith('/rest/v1'):
+    SUPABASE_URL = SUPABASE_URL[:-8].rstrip('/')
+if SUPABASE_URL.endswith('/rest/v1/'):
+    SUPABASE_URL = SUPABASE_URL[:-9].rstrip('/')
 SUPABASE_KEY = os.getenv('SUPABASE_SECRET_KEY', '')
 
 # Uses Supabase in production. SQLite fallback is included only for local testing.
